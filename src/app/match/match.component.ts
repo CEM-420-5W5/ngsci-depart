@@ -9,14 +9,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { PlayerhandComponent } from './playerhand/playerhand.component';
 import { EnemyhandComponent } from './enemyhand/enemyhand.component';
 import { BattlefieldComponent } from './battlefield/battlefield.component';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-match',
     templateUrl: './match.component.html',
     styleUrls: ['./match.component.css'],
     standalone: true,
-    imports: [NgIf, BattlefieldComponent, EnemyhandComponent, PlayerhandComponent, MatButtonModule, HealthComponent]
+    imports: [BattlefieldComponent, EnemyhandComponent, PlayerhandComponent, MatButtonModule, HealthComponent]
 })
 export class MatchComponent implements OnInit {
 

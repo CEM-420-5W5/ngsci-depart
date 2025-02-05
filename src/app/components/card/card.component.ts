@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Card } from 'src/app/models/models';
 import { MatCardModule } from '@angular/material/card';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.css'],
     standalone: true,
-    imports: [NgIf, MatCardModule]
+    imports: [MatCardModule]
 })
 export class CardComponent implements OnInit {
 

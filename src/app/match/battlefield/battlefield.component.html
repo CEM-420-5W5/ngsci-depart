@@ -1,5 +1,7 @@
 <div style="display: flex;position: relative; width: fit-content; margin: auto;">
   <div class="container">
-    <app-card *ngFor="let card of cards" [id]="card.id" class="card fadeIn" [card]="card.card" [health]="card.health" style="margin: 5px;"></app-card>
+    @for (card of cards; track card) {
+      <app-card [id]="card.id" class="card fadeIn" [card]="card.card" [health]="card.health" style="margin: 5px;"></app-card>
+    }
   </div>
 </div>
