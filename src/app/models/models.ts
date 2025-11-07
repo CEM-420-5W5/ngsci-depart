@@ -45,3 +45,8 @@ export interface PlayerData {
     battleField: PlayableCard[];
     graveyard: PlayableCard[];
 }
+
+export abstract class MatchEvent {
+  eventType!: string;
+  events!: MatchEvent[];
+}
