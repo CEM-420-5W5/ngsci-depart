@@ -9,21 +9,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { PlayerhandComponent } from './playerhand/playerhand.component';
 import { EnemyhandComponent } from './enemyhand/enemyhand.component';
 import { BattlefieldComponent } from './battlefield/battlefield.component';
+import { EventDebuggerService } from '../services/event-debugger.service';
 
 
 @Component({
-    selector: 'app-match',
-    templateUrl: './match.component.html',
-    styleUrls: ['./match.component.css'],
-    standalone: true,
-    imports: [BattlefieldComponent, EnemyhandComponent, PlayerhandComponent, MatButtonModule, HealthComponent]
+  selector: 'app-match',
+  templateUrl: './match.component.html',
+  styleUrls: ['./match.component.css'],
+  standalone: true,
+  imports: [BattlefieldComponent, EnemyhandComponent, PlayerhandComponent, MatButtonModule, HealthComponent]
 })
 export class MatchComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, public router: Router, public matchService:MatchService, public apiService:ApiService, public faker:FakerService) { }
+  constructor(private eventDebuggerService: EventDebuggerService, private route: ActivatedRoute, public router: Router, public matchService: MatchService, public apiService: ApiService, public faker: FakerService) { }
 
   async ngOnInit() {
-    let matchId:number  = parseInt(this.route.snapshot.params["id"]);
+    let matchId: number = parseInt(this.route.snapshot.params["id"]);
     // TODO Tâche Hub: Se connecter au Hub et obtenir le matchData
 
     // Test: À retirer une fois que le Hub est fonctionnel
@@ -31,6 +32,8 @@ export class MatchComponent implements OnInit {
     this.matchService.playTestMatch(cards);
 
     let fakeStartMatchEvent = this.faker.createFakeStartMatchEvent();
+    this.eventDebuggerService.addMatchEvent(fakeStartMatchEvent as any);
+
     this.matchService.applyEvent(fakeStartMatchEvent);
   }
 
@@ -50,6 +53,8 @@ export class MatchComponent implements OnInit {
 
     // On termine le tour de l'adversaire
     let adversaryFakeEndTurnEvent = this.faker.createFakePlayerEndTurnEvent(this.matchService.adversaryData!, this.matchService.playerData!);
+    this.eventDebuggerService.addMatchEvent(adversaryFakeEndTurnEvent as any);
+
     await this.matchService.applyEvent(adversaryFakeEndTurnEvent);
   }
 
@@ -61,6 +66,8 @@ export class MatchComponent implements OnInit {
   // Pour permettre de tester le visuel du gameplay avant d'avoir fait la logique sur le serveur
   fakeSurrender() {
     let fakeEndMatchEvent = this.faker.createFakeEndMatchEvent(this.matchService.adversaryData!);
+    this.eventDebuggerService.addMatchEvent(fakeEndMatchEvent as any);
+
     this.matchService.applyEvent(fakeEndMatchEvent);
   }
 
@@ -70,7 +77,7 @@ export class MatchComponent implements OnInit {
   }
 
   isVictory() {
-    if(this.matchService.matchData?.winningPlayerId)
+    if (this.matchService.matchData?.winningPlayerId)
       return this.matchService.matchData!.winningPlayerId === this.matchService.playerData!.playerId
     return false;
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatchEventDebuggerWrapper } from '../models/match-event-debugger-wrapper';
 import { MatchEvent } from '../models/models';
+import { log } from 'mermaid/dist/logger';
 
 @Injectable({
   providedIn: 'root',

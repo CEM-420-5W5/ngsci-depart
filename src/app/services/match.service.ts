@@ -3,7 +3,6 @@ import { PlayerData } from '../models/models';
 import { Injectable } from '@angular/core';
 import { Match } from '../models/models';
 import { FakerService } from './faker.service';
-import { EventDebuggerService } from './event-debugger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,7 @@ export class MatchService {
   opponentSurrendered: boolean = false;
   isCurrentPlayerTurn: boolean = false;
 
-  constructor(private eventDebuggerService: EventDebuggerService, public faker: FakerService) { }
+  constructor(public faker: FakerService) { }
 
   clearMatch() {
     this.match = null;
@@ -64,7 +63,6 @@ export class MatchService {
   // La méthode qui passe à travers l'arbre d'évènements reçu par le serveur
   // Utiliser pour mettre les données à jour et jouer les animations
   async applyEvent(event: any) {
-    this.eventDebuggerService.addMatchEvent(event);
     console.log("ApplyingEvent: " + event.eventType);
 
     switch (event.eventType) {
