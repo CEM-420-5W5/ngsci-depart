@@ -32,6 +32,7 @@ export class MatchComponent implements OnInit {
     this.matchService.playTestMatch(cards);
 
     let fakeStartMatchEvent = this.faker.createFakeStartMatchEvent();
+    // TODO déplacer vers le tâche hub pour pouvoir débugger les événements reçus du serveur
     this.eventDebuggerService.addMatchEvent(fakeStartMatchEvent as any);
 
     this.matchService.applyEvent(fakeStartMatchEvent);
