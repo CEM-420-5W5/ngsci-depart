@@ -28,7 +28,26 @@
               "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "mermaid",
+              "dayjs",
+              "dayjs/plugin/isoWeek.js",
+              "cytoscape-cose-bilkent",
+              "cytoscape",
+              "cytoscape-fcose",
+              "d3",
+              "d3-selection",
+              "d3-shape",
+              "lodash",
+              "dompurify",
+              "debug",
+              "@braintree/sanitize-url",
+              "@iconify/utils",
+              "langium",
+              "vscode-jsonrpc/lib/common/cancellation.js",
+              "vscode-jsonrpc/lib/common/events.js"
+            ]
           },
           "configurations": {
             "production": {
