@@ -21,19 +21,29 @@ export class EventDebuggerDetailsComponent {
   @ViewChild('mermaidContainer', { static: false })
   mermaidContainer!: ElementRef<HTMLPreElement>;
 
+  firstRender = true;
+
   event = input.required<MatchEventDebuggerWrapper>();
   graph = computed(() => {
     return this.eventDebuggerService.eventToMermaidGraph(this.event());
   });
 
   constructor(public eventDebuggerService: EventDebuggerService) {
+    mermaid.initialize({});
+
     effect(() => {
       const graphText = this.graph();
       if (this.mermaidContainer) {
-        this.mermaidContainer.nativeElement.innerHTML = graphText;
-        mermaid.render('generatedGraph', graphText).then(({ svg }) => {
-          this.mermaidContainer.nativeElement.innerHTML = svg;
-        });
+        if(this.firstRender) {
+          this.mermaidContainer.nativeElement.innerHTML = graphText;
+          this.firstRender = false;
+          return;
+        }
+        else{
+          mermaid.render('generatedGraph', graphText).then(({ svg }) => {
+            this.mermaidContainer.nativeElement.innerHTML = svg;
+          });
+        }
       }
     });
   }
